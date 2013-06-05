@@ -10,6 +10,7 @@ inString = re.compile(pattern1)
 inTags = re.compile(pattern2, re.DOTALL)
 inPhp = re.compile(pattern3, re.DOTALL)
 phpNoEnd = re.compile(pattern4, re.DOTALL)
+outputDelimiter = ','
 StringArray = [['filename', 'line#', 'index/pos', 'type', 'string', 'length', 'line']] # format: filename, line#, quotIndex, quotType, string, length of string, line
 
 def quotType(st):
@@ -70,7 +71,7 @@ def pullTheStrings(filename):
             if len(mo.group("words")) > 0:
                 StringArray += [[filename, lineCount, quotIndex, quotType(mo.group("quote")), mo.group("words"), len(mo.group("words")), line.replace('\r', '').replace('\n','') ]]
             quotIndex += 1
-    alllines = '\n'.join(lines)
+    #alllines = '\n'.join(lines)
 
     #print (filename + ', ' + repr(lineCount))
 
@@ -80,7 +81,8 @@ def saveTheWorld():
     global outputFile, StringArray
     SaveString = ''
     for line in StringArray:
-        SaveString += '"' + line[0] + '";' + repr(line[1]) + ';' + repr(line[2]) + ';' + line[3] + ';"' + line[4].replace('"', '""') + '";' + repr(line[5]) + ';"' + line[6].replace('"', '""') +'"\n'
+        if len(line[4]) > 1 and line[0].find(line[4]) == -1 :
+            SaveString += '"' + line[0] + '"' + outputDelimiter + '' + repr(line[1]) + '' + outputDelimiter + '' + repr(line[2]) + '' + outputDelimiter + '' + line[3] + '' + outputDelimiter + '"' + line[4].replace('"', '""') + '"' + outputDelimiter + '' + repr(line[5]) + '' + outputDelimiter + '"' + line[6].replace('"', '""') +'"\n'
     f = open(outputFile, 'w')
     f.write(SaveString)
     f.close()
