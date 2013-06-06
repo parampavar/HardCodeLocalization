@@ -1,7 +1,7 @@
 HardCodeLocalization
 ====================
 
-This is a fork of the one with the same name found in sourgeforge.net http://sourceforge.net/projects/hcl/. 
+This is a fork of the one with the same name found in sourceforge.net http://sourceforge.net/projects/hcl/. 
 
 The above mentioned project seems to be abandoned. Hence I am trying to resurect it here. The full credit for the idea and concept goes to the owner of the above mentioned project.
 
